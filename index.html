@@ -3,14 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<title>Disneyland Quiz</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
 <header><h1>Disneyland Quiz</h1>
 <p>How well do you know the happiest place on Earth?</p>
 </header>
 
+<main>
 <form>
-	<button type="submit">Begin</button>
+	<button type="submit" class="start-quiz">Begin</button>
 
 	<fieldset id="question-1">
 	<label>1. Which of these was NOT one of the original lands?</label>
@@ -20,7 +22,7 @@
 		<input type="radio" name="choice" value="c. Tomorrowland"> c. Tomorrowland <br>
 		<input type="radio" name="choice" value="d. Main Street U.S.A."> d. Main Street U.S.A.
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>
 	</fieldset>
 
@@ -32,7 +34,7 @@
 		<input type="radio" name="choice" value="c. Splash Mountain"> c. Splash Mountain <br>
 		<input type="radio" name="choice" value="d. Space Mountain"> d. Space Mountain
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -44,7 +46,7 @@
 		<input type="radio" name="choice" class="correct" value="c. Pirates of the Carribbean"> c. Pirates of the Carribbean <br>
 		<input type="radio" name="choice" value="d. Matterhorn"> d. Matterhorn
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -56,7 +58,7 @@
 		<input type="radio" name="choice" value="c. 3"> c. 3 <br>
 		<input type="radio" name="choice" value="d. 4"> d. 4
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -68,7 +70,7 @@
 		<input type="radio" name="choice" value="c. 1960"> c. 1960 <br>
 		<input type="radio" name="choice" value="d. 1965"> d. 1965
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -80,7 +82,7 @@
 		<input type="radio" name="choice" value="c. Pinocchio"> c. Pinocchio <br>
 		<input type="radio" name="choice" class="correct" value="d. Alice in Wonderland"> d. Alice in Wonderland
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -92,7 +94,7 @@
 		<input type="radio" name="choice" value="c. Blue Bayou Restaurant"> c. Blue Bayou Restaurant<br>
 		<input type="radio" name="choice" value="d. It's a Small World queue"> d. It's a Small World queue
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -104,7 +106,7 @@
 		<input type="radio" name="choice" class="correct" value="c. New Orleans Square"> c. New Orleans Square <br>
 		<input type="radio" name="choice" value="d. Mickey's Toon Town"> d. Mickey's Toon Town
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -116,7 +118,7 @@
 		<input type="radio" name="choice" value="c. Emporium"> c. Emporium <br>
 		<input type="radio" name="choice" value="d. Disneyland Railroad Station"> d. Disneyland Railroad Station
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
@@ -128,12 +130,17 @@
 		<input type="radio" name="choice" value="c. 45mph"> c. 45mph <br>
 		<input type="radio" name="choice" value="d. 55mph"> d. 55mph
 	</div>
-	<button type="submit">submit</button>
+	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>								
 
-
 </form>
+</main>
+
+<section class="results">
+	<p>You got <span id="number-correct"></span> out of 10 correct!</p>
+	<button type="submit" class="refresh"></button>
+</section>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
