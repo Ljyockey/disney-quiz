@@ -12,21 +12,29 @@
 
 <main>
 <form>
-	<button type="submit" class="start-quiz">Begin</button>
+	<button type="submit" class="begin">Begin</button>
 
-	<fieldset id="question-1">
+	<fieldset class="question" id="question-1">
 	<label>1. Which of these was NOT one of the original lands?</label>
 	<div class="choices">
+		<div class="incorrect">
 		<input type="radio" name="choice" value="a. Adventureland"> a. Adventureland <br>
-		<input type="radio" name="choice" class="correct" value="b. New Orleans Square"> b. New Orleans Square <br>
+		</div>
+		<div class="correct">
+		<input type="radio" name="choice" value="b. New Orleans Square"> b. New Orleans Square <br>
+		</div>
+		<div class="incorrect">
 		<input type="radio" name="choice" value="c. Tomorrowland"> c. Tomorrowland <br>
+		</div>
+		<div class="incorrect">
 		<input type="radio" name="choice" value="d. Main Street U.S.A."> d. Main Street U.S.A.
+		</div>
 	</div>
 	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>
 	</fieldset>
 
-	<fieldset id="question-2">
+	<fieldset class="question" id="question-2">
 	<label>2. Which ride was moved to a different land after its original opening?</label>
 	<div class="choices">
 		<input type="radio" name="choice" class="correct" value="a. Matterhorn"> a. Matterhorn <br>
@@ -38,7 +46,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-3">
+	<fieldset class="question" id="question-3">
 	<label>3. Which ride was the last project personally supervised by Walt Disney before his death?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. It's a Small World"> a. It's a Small World <br>
@@ -50,7 +58,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-4">
+	<fieldset class="question" id="question-4">
 	<label>4. Sleeping Beauty Castle contains a functioning drawbridge. How many times has it been raised?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. 1"> a. 1 <br>
@@ -62,7 +70,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-5">
+	<fieldset class="question" id="question-5">
 	<label>5. What year did Disneyland open?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. 1950"> a. 1950 <br>
@@ -74,7 +82,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-6">
+	<fieldset class="question" id="question-6">
 	<label>6. Which of these was NOT one of the original Fantasyland dark rides?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. Snow White"> a. Snow White <br>
@@ -86,7 +94,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-7">
+	<fieldset class="question" id="question-7">
 	<label>7. Where is alcohol served in Disneyland Park?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. Nowhere"> a. Nowhere <br>
@@ -98,7 +106,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-8">
+	<fieldset class="question" id="question-8">
 	<label>8. The construction of which land was funded by the Box Office success of Mary Poppins?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. Critter Country"> a. Critter Cuntry <br>
@@ -110,7 +118,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-9">
+	<fieldset class="question" id="question-9">
 	<label>9. Walt Disney had a private apartment in which Main Street building?</label>
 	<div class="choices">
 		<input type="radio" name="choice" class="correct" value="a. Fire Station"> a. Fire Station <br>
@@ -122,7 +130,7 @@
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset id="question-10">
+	<fieldset class="question" id="question-10">
 	<label>10. What is the maximum speed of Space Mountain?</label>
 	<div class="choices">
 		<input type="radio" name="choice" class="correct" value="a. 25mph"> a. 25mph <br>
@@ -139,7 +147,7 @@
 
 <section class="results">
 	<p>You got <span id="number-correct"></span> out of 10 correct!</p>
-	<button type="submit" class="refresh"></button>
+	<button type="submit" class="refresh">Start Over</button>
 </section>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
