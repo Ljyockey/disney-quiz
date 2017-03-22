@@ -7,28 +7,32 @@ $(".begin").click(function(e) {
 	$(".counter").show();
 });
 
-/*Create object containing "total" values*/
-	var totals = {
-		correct: 0,
-		incorrect: 0
-	}
-
 /*function that checks answers after clicking "check
 answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
 $(".check-answer").click(function(e) {
 	e.preventDefault();
 	var currentAnswer = $("div input:checked").closest("div");
-	if (currentAnswer.length !== 0) {
+	validateAnswer(currentAnswer);
+});
+
+function validateAnswer(answer) {
+	if (answer.length !== 0) {
 	$(".invalid-input").hide();
-	$(".check-answer").hide();	
-	checkAnswer(currentAnswer);
-	$(this).siblings($(".next-question")).show();
-	}
+	answer.parents().siblings(".check-answer").hide();	
+	checkAnswer(answer);
+	answer.parents().siblings().next(".next-question").show();
+		}
 	else {
 		$(".invalid-input").show();
 	}
-});
+}
+
+/*Create object containing "total" values*/
+	var totals = {
+		correct: 0,
+		incorrect: 0
+	}
 
 function checkAnswer(answer) {
 	if (answer.hasClass("incorrect")) {
@@ -58,7 +62,7 @@ function incorrectCounter(number) {
 next question after clicking "next"*/
 $(".next-question").click(function(e) {
 	e.preventDefault();
-	$(".check-answer").show();
+	//$(".check-answer").show();
 	$(this).parents("fieldset").hide();
 	$(this).parents().next("fieldset").show();
 })
