@@ -1,0 +1,22 @@
+.question {
+	display: none;
+}
+
+.next-question {
+	display: none;
+}
+
+.display-correct {
+	color: green;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.display-incorrect {
+	color: red;
+	text-decoration: line-through;
+}
+
+.results {
+	display: none;
+}
