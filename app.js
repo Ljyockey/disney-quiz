@@ -19,21 +19,28 @@ answer if it wasn't correct*/
 $(".check-answer").click(function(e) {
 	e.preventDefault();
 	var currentAnswer = $("div input:checked").closest("div");
+	if (currentAnswer.length !== 0) {
+	$(".invalid-input").hide();
+	$(".check-answer").hide();	
 	checkAnswer(currentAnswer);
 	$(this).siblings($(".next-question")).show();
+	}
+	else {
+		$(".invalid-input").show();
+	}
 });
 
 function checkAnswer(answer) {
 	if (answer.hasClass("incorrect")) {
-		answer.addClass("display-incorrect");
-		answer.siblings(".correct").addClass("display-correct");
-		totals.incorrect += 1;
-		incorrectCounter(totals.incorrect);
+			answer.addClass("display-incorrect");
+			answer.siblings(".correct").addClass("display-correct");
+			totals.incorrect += 1;
+			incorrectCounter(totals.incorrect);
 	}
 	else {
-		answer.addClass("display-correct");
-		totals.correct += 1;
-		correctCounter(totals.correct);	
+			answer.addClass("display-correct");
+			totals.correct += 1;
+			correctCounter(totals.correct);	
 	}
 }
 
@@ -51,14 +58,10 @@ function incorrectCounter(number) {
 next question after clicking "next"*/
 $(".next-question").click(function(e) {
 	e.preventDefault();
+	$(".check-answer").show();
 	$(this).parents("fieldset").hide();
 	$(this).parents().next("fieldset").show();
 })
-
-/*function to add the amount correct to "results"*/
-function returnResults(number) {
-	return $("#number-correct").text(number);
-}
 
 /*function to show results and hide counter*/
 $(".get-results").click(function(e){
@@ -68,6 +71,11 @@ $(".get-results").click(function(e){
 	returnResults(totals.correct);
 	$(".results").show();
 })
+
+/*function to add the amount correct to "results"*/
+function returnResults(number) {
+	return $("#number-correct").text(number);
+}
 
 /*function that refreshes page at end to start 
 again*/

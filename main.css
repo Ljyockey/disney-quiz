@@ -21,6 +21,12 @@
 	text-decoration: line-through;
 }
 
+.invalid-input {
+	display: none;
+	color: red;
+	font-weight: bold;
+}
+
 .results {
 	display: none;
 }
