@@ -2,7 +2,11 @@
 	display: none;
 }
 
-.next-question {
+.next-question, .get-results {
+	display: none;
+}
+
+.counter {
 	display: none;
 }
 
