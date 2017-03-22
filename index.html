@@ -37,16 +37,25 @@
 	<fieldset class="question" id="question-2">
 	<label>2. Which ride was moved to a different land after its original opening?</label>
 	<div class="choices">
+		<div class="correct">
 		<input type="radio" name="choice" class="correct" value="a. Matterhorn"> a. Matterhorn <br>
+		</div>
+		<div class="incorrect">
 		<input type="radio" name="choice" value="b. Big Thunder Mountain"> b. Big Thunder Mountain <br>
+		</div>
+		<div class="incorrect">
 		<input type="radio" name="choice" value="c. Splash Mountain"> c. Splash Mountain <br>
+		</div>
+		<div class="incorrect">
 		<input type="radio" name="choice" value="d. Space Mountain"> d. Space Mountain
+		</div>
 	</div>
+
 	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
 	</fieldset>
 
-	<fieldset class="question" id="question-3">
+<!-- 	<fieldset class="question" id="question-3">
 	<label>3. Which ride was the last project personally supervised by Walt Disney before his death?</label>
 	<div class="choices">
 		<input type="radio" name="choice" value="a. It's a Small World"> a. It's a Small World <br>
@@ -128,25 +137,38 @@
 	</div>
 	<button type="submit" class="check-answer">Submit</button>
 	<button type="submit" class="next-question">Next</button>	
-	</fieldset>
+	</fieldset> -->
 
 	<fieldset class="question" id="question-10">
-	<label>10. What is the maximum speed of Space Mountain?</label>
+	<label>10. What is the max speed of Space Mountain?</label>
 	<div class="choices">
-		<input type="radio" name="choice" class="correct" value="a. 25mph"> a. 25mph <br>
-		<input type="radio" name="choice" value="b. 35mph"> b. 35mph <br>
-		<input type="radio" name="choice" value="c. 45mph"> c. 45mph <br>
-		<input type="radio" name="choice" value="d. 55mph"> d. 55mph
+		<div class="correct">
+		<input type="radio" name="choice" class="correct" value="a. 25-35mph"> a. 25-35mph <br>
+		</div>
+		<div class="incorrect">
+		<input type="radio" name="choice" value="b. 35-45mph"> b. 35-45mph <br>
+		</div>
+		<div class="incorrect">
+		<input type="radio" name="choice" value="c. 45-55mph"> c. 45-55mph <br>
+		</div>
+		<div class="incorrect">
+		<input type="radio" name="choice" value="d. 55-65mph"> d. 55-65mph
+		</div>
 	</div>
 	<button type="submit" class="check-answer">Submit</button>
-	<button type="submit" class="next-question">Next</button>	
+	<button type="submit" class="get-results">Next</button>	
 	</fieldset>								
 
 </form>
 </main>
 
+<section class="counter">
+	<p class="correct-counter">Correct: 0</p>
+	<p class="incorrect-counter">Incorrect: 0</p>
+</section>
+
 <section class="results">
-	<p>You got <span id="number-correct"></span> out of 10 correct!</p>
+	<p>You got <span id="number-correct"></span>  out of 10 correct!</p>
 	<button type="submit" class="refresh">Start Over</button>
 </section>
 
