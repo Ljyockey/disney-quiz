@@ -11,10 +11,8 @@ $(".begin").click(function(e) {
 answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
 $(".check-answer").click(function(e) {
-	e.preventDefault();	
-	console.log(Object.keys(currentAnswer));	
-	currentAnswer = $(this).siblings("div").find("input:checked").closest("div");
-	console.log(currentAnswer);
+	e.preventDefault();		
+	var currentAnswer = $(this).siblings("div").find("input:checked").closest("div");
 	validateAnswer(currentAnswer);
 });
 
@@ -32,11 +30,10 @@ function validateAnswer(answer) {
 }
 
 /*Create object containing "total" values*/
-	var totals = {
-		correct: 0,
-		incorrect: 0
-	}
-	var currentAnswer = {};
+var totals = {
+	correct: 0,
+	incorrect: 0
+}
 
 function checkAnswer(answer) {
 	if (answer.hasClass("incorrect")) {
