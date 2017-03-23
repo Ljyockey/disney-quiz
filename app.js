@@ -11,18 +11,21 @@ $(".begin").click(function(e) {
 answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
 $(".check-answer").click(function(e) {
-	e.preventDefault();
-	var currentAnswer = $("div input:checked").closest("div");
+	e.preventDefault();	
+	console.log(Object.keys(currentAnswer));	
+	currentAnswer = $(this).siblings("div").find("input:checked").closest("div");
+	console.log(currentAnswer);
 	validateAnswer(currentAnswer);
 });
 
 function validateAnswer(answer) {
 	if (answer.length !== 0) {
-	$(".invalid-input").hide();
-	answer.parents().siblings(".check-answer").hide();	
-	checkAnswer(answer);
-	answer.parents().siblings().next(".next-question").show();
-		}
+		$(".invalid-input").hide();
+		answer.parents().siblings(".check-answer").hide();	
+		checkAnswer(answer);
+		answer.parents().siblings().next(".next-question").show();
+		delete answer['0'];
+			}
 	else {
 		$(".invalid-input").show();
 	}
@@ -33,6 +36,7 @@ function validateAnswer(answer) {
 		correct: 0,
 		incorrect: 0
 	}
+	var currentAnswer = {};
 
 function checkAnswer(answer) {
 	if (answer.hasClass("incorrect")) {
