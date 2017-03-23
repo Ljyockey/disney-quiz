@@ -63,7 +63,6 @@ function incorrectCounter(number) {
 next question after clicking "next"*/
 $(".next-question").click(function(e) {
 	e.preventDefault();
-	//$(".check-answer").show();
 	$(this).parents("fieldset").hide();
 	$(this).parents().next("fieldset").show();
 })
