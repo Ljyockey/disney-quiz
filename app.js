@@ -1,88 +1,243 @@
+var state = {
+	//array of objects - each object is question for quiz
+	questions: [
+		{
+			question: "1 of 10: Which of these was NOT one of the original lands?",
+			a: "a) Adventureland", 
+			b: "b) New Orleans Square",
+			c: "c) Tomorrowland",
+			d: "d) Main Street USA",
+			correct: "b"
+		},
+		{
+			question: "2 of 10: Which ride was moved to a different land after its original opening?",
+			a: "a) Matterhorn",
+			b: "b) Big Thunder Mountain",
+			c: "c) Splash Mountain",
+			d: "d) Space Mountain",
+			correct: "a"
+		},
+		{
+			question: "3 of 10: Which ride was the last project personally supervised by Walt Disney before his death?",
+			a: "a) It’s a Small World",
+			b: "b) Peter Pan’s Flight",
+			c: "c) Pirates of the Caribbean",
+			d: "d) Matterhorn",
+			correct: "c"
+		},
+		{
+			question: "4 of 10: Sleeping Beauty Castle contains a functioning drawbridge. How many times has it been raised?",
+			a: "a) 1",
+			b: "b) 2",
+			c: "c) 3",
+			d: "d) 4",
+			correct: "b"
+		},
+		{
+			question: "5 of 10: What year did Disneyland open?",
+			a: "a) 1950",
+			b: "b) 1955",
+			c: "c) 1960",
+			d: "d) 1965",
+			correct: "b"
+		},
+		{
+			question: "6 of 10: Which of these was NOT one of the original Fantasyland dark rides?",
+			a: "a) Snow White",
+			b: "b) Peter Pan",
+			c: "c) Pinocchio",
+			d: "d) Alice in Wonderland",
+			correct: "d"
+		},
+		{
+			question: "7 of 10: Where is alcohol served in Disneyland Park?",
+			a: "a) Nowhere",
+			b: "b) Blue Bayou Restaurant",
+			c: "c) Club 33",
+			d: "d) It's a Small World queue",
+			correct: "c"
+		},
+		{
+			question: "8 of 10: The construction of which land was funded by the Box Office success of Mary Poppins?",
+			a: "a) Critter Country",
+			b: "b) Frontierland",
+			c: "c) Mickey's Toon Town",
+			d: "New Orleans Square",
+			correct: "d"
+		},
+		{
+			question: "9 of 10: Walt Disney had a private apartment in which Main Street building?",
+			a: "a) Fire Stattion",
+			b: "b) City Hall",
+			c: "c) Emporium",
+			d: "d) Disneyland Railroad Station",
+			correct: "a"
+		},
+		{
+			question: "10 of 10: What is the maximum speed of Space Mountain?",
+			a: "a) 25-35mph",
+			b: "b) 35-45mph",
+			c: "c) 45-55mph",
+			d: "d) 55-65mph",
+			correct: "a"
+		}],	
+		//counters
+	totalCorrectCounter: 0,
+	totalIncorrectCounter: 0,
+	//counter used to control which object in questions array
+	//user is currently viewing
+	quizProgress: 0
+	};
+
 /*function that reveals first question of quiz after
 clicking "begin"*/
-$(".begin").click(function(e) {
-	e.preventDefault();
-	$(this).hide();
-	$("#question-1").show();
-	$(".counter").show();
-});
+
+function beginQuiz(button) {
+	button.click(function(e) {
+		e.preventDefault();
+		button.hide();
+		buildQuestion(currentQuestion);
+		$('fieldset').show();
+		$('.counter').show();
+	});
+}
+
+function buildQuestion(question) {
+	$('.choices').children().removeClass('display-correct');
+	$('.choices').children().removeClass('display-incorrect');
+	questionHTML.html(question.question + '<br>');
+	choiceA.html(question.a + '<br>');
+	choiceB.html(question.b + '<br>');
+	choiceC.html(question.c + '<br>');
+	choiceD.html(question.d + '<br>');
+}
 
 /*function that checks answers after clicking "check
 answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
-$(".check-answer").click(function(e) {
-	e.preventDefault();		
-	var currentAnswer = $(this).siblings("div").find("input:checked").closest("div");
-	validateAnswer(currentAnswer);
-});
-
-function validateAnswer(answer) {
-	if (answer.length !== 0) {
-		$(".invalid-input").hide();
-		answer.parents().siblings(".check-answer").hide();	
-		checkAnswer(answer);
-		answer.parents().siblings().next(".next-question").show();
-		delete answer['0'];
+function checkAnswer(question) {
+	$(".check-answer").click(function(e) {
+		e.preventDefault();
+		 selectedRadio = $("input:checked").next("label");
+		if (selectedRadio.length !== 0) { 
+			$(this).hide();
+			invalidInput.hide();
+			if (currentQuestion.correct === $("input:checked").val()) {
+				correctAnswer(selectedRadio);
+				correctCounter(state.totalCorrectCounter);
 			}
-	else {
-		$(".invalid-input").show();
+			else {
+				findCurrentCorrectAnswer();
+				incorrectAnswer(selectedRadio);
+				incorrectCounter(state.totalIncorrectCounter);	
+			}
+			$(".next-question").show();
+			}
+		else {
+			invalidInput.show();
+			}
+		});
 	}
+
+function correctAnswer(answer) {
+	//add "display-correct" class
+	selectedRadio.addClass('display-correct');
 }
 
-/*Create object containing "total" values*/
-var totals = {
-	correct: 0,
-	incorrect: 0
+function incorrectAnswer(answer) {	
+	//find correct, adds .display-correct
+
+	selectedRadio.addClass('display-incorrect');
 }
 
-function checkAnswer(answer) {
-	if (answer.hasClass("incorrect")) {
-			answer.addClass("display-incorrect");
-			answer.siblings(".correct").addClass("display-correct");
-			totals.incorrect += 1;
-			incorrectCounter(totals.incorrect);
-	}
-	else {
-			answer.addClass("display-correct");
-			totals.correct += 1;
-			correctCounter(totals.correct);	
-	}
+function findCurrentCorrectAnswer() {
+		$('input').each(function(){
+		if ($(this).val() === currentQuestion.correct) {
+			$(this).next('label').addClass('display-correct');
+		}
+	})
 }
 
 /*function that adds the amount of right answers*/
 function correctCounter(number) {
-	return $(".correct-counter").text("Correct: " + number)
-}
+	// number += 1;
+	state.totalCorrectCounter +=1;
+	return $(".correct-counter").text("Correct: " + state.totalCorrectCounter)
+	}
 
 function incorrectCounter(number) {
-	return $(".incorrect-counter").text("Incorrect: " + number)
-}
+	// number +=1;
+	state.totalIncorrectCounter +=1;
+	$(".incorrect-counter").text("Incorrect: " + state.totalIncorrectCounter);
+	}
 
 
 /*function that hides current question and reveals 
 next question after clicking "next"*/
-$(".next-question").click(function(e) {
+function clickNextQuestion(button) {
+	button.click(function(e) {
 	e.preventDefault();
-	$(this).parents("fieldset").hide();
-	$(this).parents().next("fieldset").show();
-})
+	$(this).hide();
+	state.quizProgress += 1;
+	currentQuestion = state.questions[state.quizProgress];
+	if (currentQuestion !== undefined) {
+		$('input:checked').prop('checked', false);
+		buildQuestion(currentQuestion);
+		checkAnswerButton.show();
+	}
+	else {
+		showResultsClass();
+	}
+
+	});
+}
 
 /*function to show results and hide counter*/
-$(".get-results").click(function(e){
-	e.preventDefault();
-	$(this).parents("fieldset").hide();
-	$(".counter").hide();
-	returnResults(totals.correct);
-	$(".results").show();
-})
+function showResultsClass() {
+		form.hide();
+		$('.counter').hide();
+		returnResults(state.totalCorrectCounter);
+		$(".results").show();
+	}
 
 /*function to add the amount correct to "results"*/
 function returnResults(number) {
 	return $("#number-correct").text(number);
-}
+	}
 
 /*function that refreshes page at end to start 
 again*/
-$(".refresh").click(function() {
+function refreshPage(refresh) {
+	refresh.click(function() {
 	location.reload();
-});
+	});
+	}
+
+//variable which takes an object from the "questions" array
+//based on "progress" counter
+var currentQuestion = state.questions[state.quizProgress];
+//variable for HTML element for form label and each indvidual radio input
+var questionHTML = $('label[for="question"]');
+var choiceA = $('label[for="a"]');
+var choiceB = $('label[for="b"]');
+var choiceC = $('label[for="c"]');
+var choiceD = $('label[for="d"]');
+
+var begin = $('.begin');
+var nextQuestionButton = $(".next-question");
+var checkAnswerButton = $(".check-answer");
+var refresh = $('.refresh');
+var invalidInput = $('.invalid-input');
+var selectedRadio;
+var otherRadios;
+var form = $('form');
+
+$(function() {
+	//call functions
+	beginQuiz(begin);
+	clickNextQuestion(nextQuestionButton);
+	checkAnswer(currentQuestion);
+	refreshPage(refresh);
+})
+
+
