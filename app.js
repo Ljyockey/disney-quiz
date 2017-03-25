@@ -1,5 +1,5 @@
 var state = {
-		//array of objects - each object is question for quiz
+	//array of objects - each object is question for quiz
 	questions: [
 		{
 			question: "1 of 10: Which of these was NOT one of the original lands?",
@@ -136,9 +136,17 @@ function correctAnswer(answer) {
 }
 
 function incorrectAnswer(answer) {	
-	//find correct, add-display-correct
-	//Object.Keys + currentCorrectAnswer??
+	//find correct, adds .display-correct
+	$('input').each(function(){
+		if ($(this).val() === currentQuestion.correct) {
+			$(this).next('label').addClass('display-correct');
+		}
+	})
 	selectedRadio.addClass('display-incorrect');
+}
+
+function findCurrentCorrectAnswer(choices) {
+	return currentCorrectAnswer === choices.val();
 }
 
 /*function that adds the amount of right answers*/
@@ -207,7 +215,6 @@ var choiceC = $('label[for="c"]');
 var choiceD = $('label[for="d"]');
 
 var begin = $('.begin');
-
 var nextQuestionButton = $(".next-question");
 var checkAnswerButton = $(".check-answer");
 var refresh = $('.refresh');
