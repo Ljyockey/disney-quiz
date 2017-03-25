@@ -110,19 +110,22 @@ function buildQuestion(question) {
 	choiceB.html(question.b + '<br>');
 	choiceC.html(question.c + '<br>');
 	choiceD.html(question.d + '<br>');
+	//condense this?
 }
 
 /*function that checks answers after clicking "check
 answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
 function checkAnswer(question) {
+	//use variable names + .on(click)
 	$(".check-answer").click(function(e) {
 		e.preventDefault();
 		 selectedRadio = $("input:checked").next("label");
 		if (selectedRadio.length !== 0) { 
 			$(this).hide();
 			invalidInput.hide();
-			if (currentQuestion.correct === $("input:checked").val()) {
+			//checking if selected answer is correct answer
+			if (question.correct === $("input:checked").val()) {
 				correctAnswer(selectedRadio);
 				correctCounter(state.totalCorrectCounter);
 			}
@@ -151,7 +154,7 @@ function incorrectAnswer(answer) {
 }
 
 function findCurrentCorrectAnswer() {
-		$('input').each(function(){
+	$('input').each(function(){
 		if ($(this).val() === currentQuestion.correct) {
 			$(this).next('label').addClass('display-correct');
 		}
@@ -180,11 +183,13 @@ function clickNextQuestion(button) {
 	$(this).hide();
 	state.quizProgress += 1;
 	currentQuestion = state.questions[state.quizProgress];
+	//checks if there are still remaining questions
 	if (currentQuestion !== undefined) {
 		$('input:checked').prop('checked', false);
 		buildQuestion(currentQuestion);
 		checkAnswerButton.show();
 	}
+	//once there are no more questions
 	else {
 		showResultsClass();
 	}
@@ -229,7 +234,7 @@ var checkAnswerButton = $(".check-answer");
 var refresh = $('.refresh');
 var invalidInput = $('.invalid-input');
 var selectedRadio;
-var otherRadios;
+// var otherRadios;
 var form = $('form');
 
 $(function() {
