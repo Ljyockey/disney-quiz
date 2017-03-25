@@ -84,6 +84,8 @@ var state = {
 		//counters
 	totalCorrectCounter: 0,
 	totalIncorrectCounter: 0,
+	//counter used to control which object in questions array
+	//user is currently viewing
 	quizProgress: 0
 	};
 
@@ -116,17 +118,24 @@ answer if it wasn't correct*/
 function checkAnswer(question) {
 	$(".check-answer").click(function(e) {
 		e.preventDefault();
-		$(this).hide();
 		 selectedRadio = $("input:checked").next("label");
-		if (currentQuestion.correct === $("input:checked").val()) {
-			correctAnswer(selectedRadio);
-			correctCounter(state.totalCorrectCounter);
-		}
+		if (selectedRadio.length !== 0) { 
+			$(this).hide();
+			invalidInput.hide();
+			if (currentQuestion.correct === $("input:checked").val()) {
+				correctAnswer(selectedRadio);
+				correctCounter(state.totalCorrectCounter);
+			}
+			else {
+				findCurrentCorrectAnswer();
+				incorrectAnswer(selectedRadio);
+				incorrectCounter(state.totalIncorrectCounter);	
+			}
+			$(".next-question").show();
+			}
 		else {
-			incorrectAnswer(selectedRadio);
-			incorrectCounter(state.totalIncorrectCounter);	
-		}
-		$(".next-question").show();
+			invalidInput.show();
+			}
 		});
 	}
 
@@ -137,16 +146,16 @@ function correctAnswer(answer) {
 
 function incorrectAnswer(answer) {	
 	//find correct, adds .display-correct
-	$('input').each(function(){
+
+	selectedRadio.addClass('display-incorrect');
+}
+
+function findCurrentCorrectAnswer() {
+		$('input').each(function(){
 		if ($(this).val() === currentQuestion.correct) {
 			$(this).next('label').addClass('display-correct');
 		}
 	})
-	selectedRadio.addClass('display-incorrect');
-}
-
-function findCurrentCorrectAnswer(choices) {
-	return currentCorrectAnswer === choices.val();
 }
 
 /*function that adds the amount of right answers*/
@@ -218,6 +227,7 @@ var begin = $('.begin');
 var nextQuestionButton = $(".next-question");
 var checkAnswerButton = $(".check-answer");
 var refresh = $('.refresh');
+var invalidInput = $('.invalid-input');
 var selectedRadio;
 var otherRadios;
 var form = $('form');
