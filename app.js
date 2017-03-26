@@ -125,7 +125,7 @@ function checkAnswer(question) {
 			$(this).hide();
 			invalidInput.hide();
 			//checking if selected answer is correct answer
-			if (question.correct === $("input:checked").val()) {
+			if (currentQuestion.correct === $("input:checked").val()) {
 				correctAnswer(selectedRadio);
 				correctCounter(state.totalCorrectCounter);
 			}
