@@ -31,6 +31,10 @@ h1, h2 {
 	text-align: center;
 }
 
+.description {
+	text-align: center;
+}
+
 button {
 	position: relative;
 	display: block;
