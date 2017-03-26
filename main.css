@@ -4,17 +4,30 @@ body {
 
 }
 
+img {
+	display: block;
+	position: relative;
+	top: 25px;
+	height: 200px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 .container {
-	background-image: linear-gradient(
+/*	background-image: linear-gradient(
   	rgba(0, 0, 0, 0.5),
-  	rgba(0, 0, 0, 0.5));
+  	rgba(0, 0, 0, 0.5));*/
+  	background-color: midnightblue;
   	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
+	padding: 20px;
 }
 
 h1, h2 {
 	font-family: 'WaltographRegular';
+	font-weight: normal;
+	font-size: 2.5em;
 }
 
 fieldset {
