@@ -96,6 +96,7 @@ function beginQuiz(button) {
 	button.click(function(e) {
 		e.preventDefault();
 		button.hide();
+		$('.description').hide();
 		buildQuestion(currentQuestion);
 		$('fieldset').show();
 		$('.counter').show();
