@@ -62,12 +62,12 @@ var state = {
 			a: "a) Critter Country",
 			b: "b) Frontierland",
 			c: "c) Mickey's Toon Town",
-			d: "New Orleans Square",
+			d: "d) New Orleans Square",
 			correct: "d"
 		},
 		{
 			question: "9 of 10: Walt Disney had a private apartment in which Main Street building?",
-			a: "a) Fire Stattion",
+			a: "a) Fire Station",
 			b: "b) City Hall",
 			c: "c) Emporium",
 			d: "d) Disneyland Railroad Station",
