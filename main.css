@@ -11,15 +11,13 @@ img {
 	position: relative;
 	top: 25px;
 	height: 200px;
-	margin-right: auto;
-	margin-left: auto;
+	margin: 0 auto;
 }
 
 .container {
   	background-color: midnightblue;
   	width: 50%;
-	margin-left: auto;
-	margin-right: auto;
+  	margin: 0 auto;
 	padding: 20px;
 }
 
