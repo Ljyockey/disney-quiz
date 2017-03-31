@@ -16,7 +16,7 @@ img {
 
 .container {
   	background-color: midnightblue;
-  	width: 50%;
+  	width: 60%;
   	margin: 0 auto;
 	padding: 20px;
 }
@@ -57,7 +57,6 @@ button:hover {
 }
 
 fieldset {
-	display: none;
 	border: none;
 }
 
@@ -70,12 +69,13 @@ input {
 	margin-bottom: 15px;
 }
 
-.next-question, .get-results {
+.next-question, .get-results,
+fieldset, .counter, 
+.invalid-input, .results {
 	display: none;
 }
 
 .counter {
-	display: none;
 	text-align: center;
 }
 
@@ -91,7 +91,6 @@ input {
 }
 
 .invalid-input {
-	display: none;
 	color: red;
 	font-size: 1.2em;
 	font-weight: bold;
@@ -99,7 +98,6 @@ input {
 }
 
 .results {
-	display: none;
 	text-align: center;
 	margin-top: -10px;
 	margin-bottom: 20px;
