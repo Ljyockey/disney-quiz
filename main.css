@@ -102,3 +102,7 @@ fieldset, .counter,
 	margin-top: -10px;
 	margin-bottom: 20px;
 }
+
+a {
+	color: white;
+}
