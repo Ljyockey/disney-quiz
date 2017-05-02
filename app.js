@@ -7,7 +7,8 @@ var state = {
 			b: "b) New Orleans Square",
 			c: "c) Tomorrowland",
 			d: "d) Main Street USA",
-			correct: "b"
+			correct: "b",
+			details: "The correct answer is b. New Orleans Square opened in 1966."
 		},
 		{
 			question: "2 of 10: Which ride was moved to a different land after its original opening?",
@@ -15,7 +16,8 @@ var state = {
 			b: "b) Big Thunder Mountain",
 			c: "c) Splash Mountain",
 			d: "d) Space Mountain",
-			correct: "a"
+			correct: "a",
+			details: "The correct answer is a. The Matterhorn was part of Tomorrowland when it first opened. It was later changed to Fantasyland."
 		},
 		{
 			question: "3 of 10: Which ride was the last project personally supervised by Walt Disney before his death?",
@@ -23,23 +25,26 @@ var state = {
 			b: "b) Peter Pan’s Flight",
 			c: "c) Pirates of the Caribbean",
 			d: "d) Matterhorn",
-			correct: "c"
+			correct: "c",
+			details: "The correct answer is c. This was the last project where Walt directly participated in the design, though it didn't debut until approximately 3 months after his death."
 		},
 		{
-			question: "4 of 10: Sleeping Beauty Castle contains a functioning drawbridge. How many times has it been raised?",
-			a: "a) 1",
-			b: "b) 2",
-			c: "c) 3",
-			d: "d) 4",
-			correct: "b"
-		},
-		{
-			question: "5 of 10: What year did Disneyland open?",
+			question: "4 of 10: What year did Disneyland open?",
 			a: "a) 1950",
 			b: "b) 1955",
 			c: "c) 1960",
 			d: "d) 1965",
-			correct: "b"
+			correct: "b",
+			details: "The correct answer is b. Disneyland's official opening date was July 17, 1955"
+		},
+		{
+			question: "5 of 10: Sleeping Beauty Castle contains a functioning drawbridge. How many times has it been raised?",
+			a: "a) 1",
+			b: "b) 2",
+			c: "c) 3",
+			d: "d) 4",
+			correct: "b",
+			details: "The correct answer is b. It was raised in 1955 for the grand opening of Disneyland and again in 1983 for the grand re-opening of Fantasyland."
 		},
 		{
 			question: "6 of 10: Which of these was NOT one of the original Fantasyland dark rides?",
@@ -47,7 +52,8 @@ var state = {
 			b: "b) Peter Pan",
 			c: "c) Pinocchio",
 			d: "d) Alice in Wonderland",
-			correct: "d"
+			correct: "d",
+			details: "The correct answer is d. Alice and Wonderland did not open until 1958 due to budgetary restrictions."
 		},
 		{
 			question: "7 of 10: Where is alcohol served in Disneyland Park?",
@@ -55,7 +61,8 @@ var state = {
 			b: "b) Blue Bayou Restaurant",
 			c: "c) Club 33",
 			d: "d) It's a Small World queue",
-			correct: "c"
+			correct: "c",
+			details: "The correct answer is c. While there are many locations where alcohol is served in Downtown Disney and Disney California Adventure, the only place to purchase alcohol within Disneyland Park is at this exclusive, members-only dining club."
 		},
 		{
 			question: "8 of 10: The construction of which land was funded by the Box Office success of Mary Poppins?",
@@ -63,7 +70,8 @@ var state = {
 			b: "b) Frontierland",
 			c: "c) Mickey's Toon Town",
 			d: "d) New Orleans Square",
-			correct: "d"
+			correct: "d",
+			details: "The correct answer is d. This was the first major project which was not heavily funded by corporate sponsorship."
 		},
 		{
 			question: "9 of 10: Walt Disney had a private apartment in which Main Street building?",
@@ -71,7 +79,8 @@ var state = {
 			b: "b) City Hall",
 			c: "c) Emporium",
 			d: "d) Disneyland Railroad Station",
-			correct: "a"
+			correct: "a",
+			details: "The correct answer is a. The next time you walk by, you'll notice that the light has been kept on for Walt."
 		},
 		{
 			question: "10 of 10: What is the maximum speed of Space Mountain?",
@@ -79,7 +88,8 @@ var state = {
 			b: "b) 35-45mph",
 			c: "c) 45-55mph",
 			d: "d) 55-65mph",
-			correct: "a"
+			correct: "a",
+			details: "The correct answer is a. Space Mountain feels much faster due to riding in the dark."
 		}],	
 		//counters
 	totalCorrectCounter: 0,
