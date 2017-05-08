@@ -254,6 +254,6 @@ $(function() {
 	clickNextQuestion(nextQuestionButton);
 	checkAnswer(currentQuestion);
 	refreshPage(refresh);
-})
+});
 
 
