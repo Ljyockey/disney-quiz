@@ -4,6 +4,11 @@ app.use(express.static('views'));
 
 const twitterAPI = require('node-twitter-api');
 
+var authUrl;
+var requestToken;
+var requestTokenSecret;
+var oauth_verifier;
+
 var twitter = new twitterAPI({
 	consumerKey: '',
 	consumerSecret: '',
@@ -16,9 +21,22 @@ var twitter = new twitterAPI({
 			console.log(error);
 		}
 		else {
-			twitter.getAuthUrl(requestToken);
+			console.log('here');
+			authUrl = twitter.getAuthUrl(requestToken);
+			requestToken = requestToken;
+			requestTokenSecret = requestTokenSecret;
+			oauth_verifier = oauth_verifier;
+
 		}
 	});
+		twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
+			if (error) {
+				console.log(error);
+			}
+			else {
+				console.log(accessToken);
+			}
+		});
 	});
 
 app.listen(process.env.PORT || 8080, () => console.log(
