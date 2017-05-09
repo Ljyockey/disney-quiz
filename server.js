@@ -16,29 +16,38 @@ var twitter = new twitterAPI({
 });
 
 		app.get('/twitter', (req, res) => {
-		twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results) {
-		if(error) {
-			console.log(error);
-		}
-		else {
-			console.log('here');
-			authUrl = twitter.getAuthUrl(requestToken);
-			requestToken = requestToken;
-			requestTokenSecret = requestTokenSecret;
-			oauth_verifier = oauth_verifier;
+			var twitterPromise = new Promise((resolve, reject) => {
+				twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results) {
+					console.log('here! 1')
+					resolve({
+					requestToken: requestToken,
+					requestTokenSecret: requestTokenSecret
+					// oauth_verifier: oauth_verifier
+					});
+					});
+				});
 
-		}
-	}).then(function() {
-		twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
-			if (error) {
-				console.log(error);
-			}
-			else {
-				console.log(twitter.getAuthUrl);
-			}
+					twitterPromise.then((data) => {
+						console.log('then! 2', data);
+						var twitterAccessToken = new Promise((resolve, reject) => {
+						twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
+							//user gets redirected to authorization URL
+							//this app stores accessToken and accessTokenSecret
+							if (accessToken) 
+							resolve({
+								accessToken: accessToken,
+								accessTokenSecret: accessTokenSecret
+							});
+						});
+					})
+						.then((data) => {
+							console.log('4', data);
+						});
+					});
+				// 	.catch(error => {
+				// 	console.log(error);
+				// });
 		});
-	});
-	});
 
 app.listen(process.env.PORT || 8080, () => console.log(
   `Your app is listening on port ${process.env.PORT || 8080}`));
