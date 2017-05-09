@@ -22,7 +22,6 @@ var twitter = new twitterAPI({
 					resolve({
 					requestToken: requestToken,
 					requestTokenSecret: requestTokenSecret
-					// oauth_verifier: oauth_verifier
 					});
 					});
 				});
@@ -30,16 +29,16 @@ var twitter = new twitterAPI({
 					twitterPromise.then((data) => {
 						console.log('then! 2', data);
 						var twitterAccessToken = new Promise((resolve, reject) => {
-						twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
-							//user gets redirected to authorization URL
-							//this app stores accessToken and accessTokenSecret
-							if (accessToken) 
-							resolve({
-								accessToken: accessToken,
-								accessTokenSecret: accessTokenSecret
+							//redirects user to a Twitter URL that allows my app to access their account
+							res.redirect(twitter.getAuthUrl(data.requestToken));
+							//this should only fire once user has been redirected on line 33							
+							twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
+								resolve({
+									accessToken: accessToken,
+									accessTokenSecret: accessTokenSecret
+								});
 							});
-						});
-					})
+						})
 						.then((data) => {
 							console.log('4', data);
 						});
