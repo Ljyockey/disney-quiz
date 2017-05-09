@@ -16,7 +16,7 @@ var twitter = new twitterAPI({
 });
 
 		app.get('/twitter', (req, res) => {
-				twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results) {
+		twitter.getRequestToken(function(error, requestToken, requestTokenSecret, results) {
 		if(error) {
 			console.log(error);
 		}
@@ -28,15 +28,16 @@ var twitter = new twitterAPI({
 			oauth_verifier = oauth_verifier;
 
 		}
-	});
+	}).then(function() {
 		twitter.getAccessToken(requestToken, requestTokenSecret, oauth_verifier, function(error, accessToken, accessTokenSecret, results) {
 			if (error) {
 				console.log(error);
 			}
 			else {
-				console.log(accessToken);
+				console.log(twitter.getAuthUrl);
 			}
 		});
+	});
 	});
 
 app.listen(process.env.PORT || 8080, () => console.log(
