@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Ljyockey/disney-quiz#readme",
   "dependencies": {
+    "asyncawait": "^1.0.6",
     "express": "^4.15.2",
     "mongoose": "^4.9.7",
     "node-twitter-api": "^1.8.0"
