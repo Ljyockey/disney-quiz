@@ -112,13 +112,19 @@ function beginQuiz(e) {
 }
 
 function buildQuestion(question) {
-  $('.choices').children().removeClass('display-correct');
-  $('.choices').children().removeClass('display-incorrect');
-  questionHTML.html(question.question + '<br>');
-  choiceA.html(question.a + '<br>');
-  choiceB.html(question.b + '<br>');
-  choiceC.html(question.c + '<br>');
-  choiceD.html(question.d + '<br>');
+  var c = document.getElementsByClassName('display-correct');
+  if (c.length > 0) {
+	  c[0].classList.remove('display-correct')
+  }
+  var i = document.getElementsByClassName('display-incorrect');
+  if (i.length > 0) {
+	  i[0].classList.remove('display-incorrect')
+  }
+  questionHTML[0].innerHTML = question.question + '<br>';
+  choiceA[0].innerHTML = question.a + '<br>';
+  choiceB[0].innerHTML = question.b + '<br>';
+  choiceC[0].innerHTML = question.c + '<br>';
+  choiceD[0].innerHTML = question.d + '<br>';
   //condense this?
 }
 
