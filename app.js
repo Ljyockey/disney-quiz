@@ -120,11 +120,11 @@ function buildQuestion(question) {
   if (i.length > 0) {
 	  i[0].classList.remove('display-incorrect')
   }
-  questionHTML[0].innerHTML = question.question + '<br>';
-  choiceA[0].innerHTML = question.a + '<br>';
-  choiceB[0].innerHTML = question.b + '<br>';
-  choiceC[0].innerHTML = question.c + '<br>';
-  choiceD[0].innerHTML = question.d + '<br>';
+  questionHTML.innerHTML = question.question + '<br>';
+  choiceA.innerHTML = question.a + '<br>';
+  choiceB.innerHTML = question.b + '<br>';
+  choiceC.innerHTML = question.c + '<br>';
+  choiceD.innerHTML = question.d + '<br>';
   //condense this?
 }
 
@@ -133,7 +133,6 @@ answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
 function checkAnswer(e) {
   e.preventDefault();
-  //  selectedRadio = $("input:checked").next("label");
   selectedRadio = document.querySelector('input:checked') ? document.querySelector(`label[for="${document.querySelector('input:checked').id}"]`) : null;
   if (selectedRadio !== null) { 
     this.style.display = 'none';
@@ -173,14 +172,14 @@ function findCurrentCorrectAnswer() {
 /*function that adds the amount of right answers*/
 function correctCounter(number) {
   // number += 1;
-  state.totalCorrectCounter +=1;
-  return $(".correct-counter").text("Correct: " + state.totalCorrectCounter)
+  state.totalCorrectCounter++;
+  document.getElementsByClassName('correct-counter')[0].innerText = "Correct: " + state.totalCorrectCounter;
 }
 
 function incorrectCounter(number) {
   // number +=1;
-  state.totalIncorrectCounter +=1;
-  $(".incorrect-counter").text("Incorrect: " + state.totalIncorrectCounter);
+  state.totalIncorrectCounter++;
+  document.getElementsByClassName('incorrect-counter')[0].innerText = "Incorrect: " + state.totalIncorrectCounter;
 }
 
 
@@ -189,13 +188,13 @@ next question after clicking "next"*/
 function clickNextQuestion(e) {
   e.preventDefault();
   this.style.display = 'none';
-  state.quizProgress += 1;
+  state.quizProgress++;
   currentQuestion = state.questions[state.quizProgress];
   //checks if there are still remaining questions
   if (currentQuestion !== undefined) {
-    $('input:checked').prop('checked', false);
+    document.querySelector('input:checked').checked = false;
     buildQuestion(currentQuestion);
-    checkAnswerButton.show();
+    checkAnswerButton.style.display = 'block';
   }
   //once there are no more questions
   else {
@@ -205,54 +204,50 @@ function clickNextQuestion(e) {
 
 /*function to show results and hide counter*/
 function showResultsClass() {
-  form.hide();
-  $('.counter').hide();
+  form.style.display = 'none';
+  document.getElementsByClassName('counter')[0].style.display = 'none';
   returnResults(state.totalCorrectCounter);
-  $(".results").show();
+  document.getElementsByClassName('results')[0].style.display = 'block';
 }
 
 /*function to add the amount correct to "results"*/
 function returnResults(number) {
-  return $("#number-correct").text(number);
+  return document.getElementById('number-correct').innerText = number;
 }
 
 /*function that refreshes page at end to start 
 again*/
-function refreshPage(refresh) {
-  refresh.click(function() {
+function refreshPage() {
     location.reload();
-  });
 }
 
 //variable which takes an object from the "questions" array
 //based on "progress" counter
 var currentQuestion = state.questions[state.quizProgress];
 //variable for HTML element for form label and each indvidual radio input
-var questionHTML = $('label[for="question"]');
-var choiceA = $('label[for="a"]');
-var choiceB = $('label[for="b"]');
-var choiceC = $('label[for="c"]');
-var choiceD = $('label[for="d"]');
+var questionHTML = document.querySelector('label[for="question"]'); 
+var choiceA = document.querySelector('label[for="a"]');
+var choiceB = document.querySelector('label[for="b"]');
+var choiceC = document.querySelector('label[for="c"]');
+var choiceD = document.querySelector('label[for="d"]');
 
 var begin = document.getElementsByClassName('begin');
 var nextQuestionButton = document.getElementsByClassName('next-question');
-var checkAnswerButton = $(".check-answer");
-var refresh = $('.refresh');
+var checkAnswerButton = document.getElementsByClassName('check-answer')[0];
+var refresh = document.getElementsByClassName('refresh')[0];
 var invalidInput = document.getElementsByClassName('invalid-input')[0];
 var selectedRadio;
 // var otherRadios;
-var form = $('form');
+var form = document.querySelector('form');
 
 function eventHandlers() {
   begin[0].onclick = beginQuiz;
   nextQuestionButton[0].onclick = clickNextQuestion;
-  checkAnswerButton[0].onclick = checkAnswer;
+  checkAnswerButton.onclick = checkAnswer;
+  refresh.onclick = refreshPage;
+
 }
 
-$(function() {
-  //call functions
-  eventHandlers();
-  refreshPage(refresh);
-});
+eventHandlers();
 
 
