@@ -131,49 +131,43 @@ function buildQuestion(question) {
 /*function that checks answers after clicking "check
 answer". Add green font to correct and red to user's
 answer if it wasn't correct*/
-function checkAnswer(question) {
-  //use variable names + .on(click)
-  $(".check-answer").click(function(e) {
-    e.preventDefault();
-		 selectedRadio = $("input:checked").next("label");
-    if (selectedRadio.length !== 0) { 
-      $(this).hide();
-      invalidInput.hide();
-      //checking if selected answer is correct answer
-      if (currentQuestion.correct === $("input:checked").val()) {
-        correctAnswer(selectedRadio);
-        correctCounter(state.totalCorrectCounter);
-      }
-      else {
-        findCurrentCorrectAnswer();
-        incorrectAnswer(selectedRadio);
-        incorrectCounter(state.totalIncorrectCounter);	
-      }
-      $(".next-question").show();
+function checkAnswer(e) {
+  e.preventDefault();
+  //  selectedRadio = $("input:checked").next("label");
+  selectedRadio = document.querySelector('input:checked') ? document.querySelector(`label[for="${document.querySelector('input:checked').id}"]`) : null;
+  if (selectedRadio !== null) { 
+    this.style.display = 'none';
+    invalidInput.style.display = 'none';
+    //checking if selected answer is correct answer
+    if (currentQuestion.correct === document.querySelector('input:checked').id) {
+      correctAnswer();
+      correctCounter(state.totalCorrectCounter);
     }
     else {
-      invalidInput.show();
+      findCurrentCorrectAnswer();
+      incorrectAnswer();
+      incorrectCounter(state.totalIncorrectCounter);	
     }
-  });
+    document.getElementsByClassName('next-question')[0].style.display = 'block';
+  }
+  else {
+    invalidInput.style.display = 'block';
+  }
 }
 
-function correctAnswer(answer) {
+function correctAnswer() {
   //add "display-correct" class
-  selectedRadio.addClass('display-correct');
+  selectedRadio.classList.add('display-correct');
 }
 
-function incorrectAnswer(answer) {	
+function incorrectAnswer() {	
   //find correct, adds .display-correct
-
-  selectedRadio.addClass('display-incorrect');
+  selectedRadio.classList.add('display-incorrect');
 }
 
 function findCurrentCorrectAnswer() {
-  $('input').each(function(){
-    if ($(this).val() === currentQuestion.correct) {
-      $(this).next('label').addClass('display-correct');
-    }
-  })
+  var ca = document.querySelector(`label[for="${currentQuestion.correct}"]`);
+  ca.classList.add('display-correct');
 }
 
 /*function that adds the amount of right answers*/
@@ -192,24 +186,21 @@ function incorrectCounter(number) {
 
 /*function that hides current question and reveals 
 next question after clicking "next"*/
-function clickNextQuestion(button) {
-  button.click(function(e) {
-    e.preventDefault();
-    $(this).hide();
-    state.quizProgress += 1;
-    currentQuestion = state.questions[state.quizProgress];
-    //checks if there are still remaining questions
-    if (currentQuestion !== undefined) {
-      $('input:checked').prop('checked', false);
-      buildQuestion(currentQuestion);
-      checkAnswerButton.show();
-    }
-    //once there are no more questions
-    else {
-      showResultsClass();
-    }
-
-  });
+function clickNextQuestion(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  state.quizProgress += 1;
+  currentQuestion = state.questions[state.quizProgress];
+  //checks if there are still remaining questions
+  if (currentQuestion !== undefined) {
+    $('input:checked').prop('checked', false);
+    buildQuestion(currentQuestion);
+    checkAnswerButton.show();
+  }
+  //once there are no more questions
+  else {
+    showResultsClass();
+  }
 }
 
 /*function to show results and hide counter*/
@@ -244,23 +235,23 @@ var choiceC = $('label[for="c"]');
 var choiceD = $('label[for="d"]');
 
 var begin = document.getElementsByClassName('begin');
-var nextQuestionButton = $(".next-question");
+var nextQuestionButton = document.getElementsByClassName('next-question');
 var checkAnswerButton = $(".check-answer");
 var refresh = $('.refresh');
-var invalidInput = $('.invalid-input');
+var invalidInput = document.getElementsByClassName('invalid-input')[0];
 var selectedRadio;
 // var otherRadios;
 var form = $('form');
 
 function eventHandlers() {
   begin[0].onclick = beginQuiz;
+  nextQuestionButton[0].onclick = clickNextQuestion;
+  checkAnswerButton[0].onclick = checkAnswer;
 }
 
 $(function() {
   //call functions
   eventHandlers();
-  clickNextQuestion(nextQuestionButton);
-  checkAnswer(currentQuestion);
   refreshPage(refresh);
 });
 
