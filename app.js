@@ -225,7 +225,7 @@ function refreshPage() {
 //based on 'progress' counter
 let currentQuestion = state.questions[state.quizProgress];
 //constiable for HTML element for form label and each indvidual radio input
-const questionHTML = document.querySelector('label[for=\'question\']'); 
+const questionHTML = document.querySelector('legend'); 
 const choiceA = document.querySelector('label[for=\'a\']');
 const choiceB = document.querySelector('label[for=\'b\']');
 const choiceC = document.querySelector('label[for=\'c\']');
