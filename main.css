@@ -89,11 +89,8 @@ fieldset, .counter,
 	text-decoration: line-through;
 }
 
-.invalid-input {
-	color: red;
-	font-size: 1.2em;
-	font-weight: bold;
-	margin-left: 20px;
+.details-container {
+	display: none;
 }
 
 .results {

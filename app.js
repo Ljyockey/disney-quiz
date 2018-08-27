@@ -127,6 +127,7 @@ function buildQuestion(question) {
   choiceB.innerHTML = question.b + '<br>';
   choiceC.innerHTML = question.c + '<br>';
   choiceD.innerHTML = question.d + '<br>';
+  detailsElement.innerHTML = question.details;
   //condense this?
 }
 
@@ -136,7 +137,8 @@ answer if it wasn't correct*/
 function checkAnswer(e) {
   e.preventDefault();
   selectedRadio = document.querySelector('input:checked') ? document.querySelector(`label[for='${document.querySelector('input:checked').id}']`) : null;
-  this.style.display = 'none';
+  checkAnswerButton.style.display = 'none';
+  detailsContainer.style.display = 'block';
   //checking if selected answer is correct answer
   if (currentQuestion.correct === document.querySelector('input:checked').id) {
     correctAnswer();
@@ -154,11 +156,13 @@ function checkAnswer(e) {
 function correctAnswer() {
   //add 'display-correct' class
   selectedRadio.classList.add('display-correct');
+  correctOrIncorrect.innerHTML = 'Correct!';
 }
 
 function incorrectAnswer() {	
   //find correct, adds .display-correct
   selectedRadio.classList.add('display-incorrect');
+  correctOrIncorrect.innerHTML = 'Incorrect!';
 }
 
 function findCurrentCorrectAnswer() {
@@ -182,6 +186,7 @@ function incorrectCounter() {
 next question after clicking 'next'*/
 function clickNextQuestion(e) {
   e.preventDefault();
+  detailsContainer.style.display = 'none';
   this.style.display = 'none';
   state.quizProgress++;
   currentQuestion = state.questions[state.quizProgress];
@@ -190,6 +195,7 @@ function clickNextQuestion(e) {
     document.querySelector('input:checked').checked = false;
     buildQuestion(currentQuestion);
     formElement.style.display = 'block';
+    checkAnswerButton.style.display = 'block';
   }
   //once there are no more questions
   else {
@@ -233,6 +239,9 @@ const formElement = document.querySelector('form');
 const refresh = document.getElementsByClassName('refresh')[0];
 let selectedRadio;
 const form = document.querySelector('form');
+const detailsContainer = document.getElementsByClassName('details-container')[0];
+const correctOrIncorrect = document.getElementById('correct-or-incorrect');
+const detailsElement = document.getElementById('details');
 
 function eventHandlers() {
   begin[0].onclick = beginQuiz;
