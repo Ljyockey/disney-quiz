@@ -16,7 +16,6 @@ img {
 
 .container {
   	background-color: midnightblue;
-  	width: 60%;
   	margin: 0 auto;
 	padding: 20px;
 }
@@ -105,4 +104,10 @@ fieldset, .counter,
 
 a {
 	color: white;
+}
+
+@media only screen and (min-width: 640px) {
+	.container {
+		width: 60%;
+	}
 }
