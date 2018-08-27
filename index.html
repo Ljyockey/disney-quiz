@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
@@ -8,46 +8,42 @@
 	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-<header>
-<img src="img/mickey-mouse.gif" alt="mickey mouse">
+<header role="banner">
+<img src="img/mickey-mouse.gif" alt="">
 </header>
 <div class="container">
 <section class="sub-header"><h1>Disneyland Quiz</h1>
 <p class="description">How well do you know the happiest place on Earth?</p>
 </section>
 
-<main>
+<main role="main">
 	<button type="submit" class="begin">Begin</button>
-<form>
+	<form>
 
-	<fieldset class="question" id="question">
-		<legend></legend>
-		<div class="choices">
-			<input type="radio" name="choice" id="a" value="a" required>
-			<label for="a"></label>
-			<input type="radio" name="choice" id="b" value="b">
-			<label for="b"></label>
-			<input type="radio" name="choice" id="c" value="c">
-			<label for="c"></label>
-			<input type="radio" name="choice" id="d" value="d">
-			<label for="d"></label>
-		</div>
-		<button class="check-answer">Submit</button>
-		<button type="submit" class="next-question">Next</button>
-	</fieldset>
-</form>
+		<fieldset class="question" id="question">
+			<legend></legend>
+			<div class="choices">
+				<input type="radio" name="choice" id="a" value="a" required>
+				<label for="a"></label>
+				<input type="radio" name="choice" id="b" value="b">
+				<label for="b"></label>
+				<input type="radio" name="choice" id="c" value="c">
+				<label for="c"></label>
+				<input type="radio" name="choice" id="d" value="d">
+				<label for="d"></label>
+			</div>
+			<button class="check-answer" type="submit">Submit</button>
+		</fieldset>
+	</form>
+	<button type="button" class="next-question">Next</button>
 </main>
-
-	<section class="invalid-input">
-		<p>Please select an answer</p>
-	</section>
 
 <section class="counter">
 	<p class="correct-counter">Correct: 0</p>
 	<p class="incorrect-counter">Incorrect: 0</p>
 </section>
 
-<section class="results">
+<section class="results" role="region">
 	<h2>Results</h2>
 	<p>You got <span id="number-correct"></span>  out of 10 correct!</p>
 	<p><a href="https://twitter.com/Ljyockey">Follow me on Twitter</a></p>

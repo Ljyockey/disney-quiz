@@ -136,24 +136,19 @@ answer if it wasn't correct*/
 function checkAnswer(e) {
   e.preventDefault();
   selectedRadio = document.querySelector('input:checked') ? document.querySelector(`label[for='${document.querySelector('input:checked').id}']`) : null;
-  if (selectedRadio !== null) { 
-    this.style.display = 'none';
-    invalidInput.style.display = 'none';
-    //checking if selected answer is correct answer
-    if (currentQuestion.correct === document.querySelector('input:checked').id) {
-      correctAnswer();
-      correctCounter(state.totalCorrectCounter);
-    }
-    else {
-      findCurrentCorrectAnswer();
-      incorrectAnswer();
-      incorrectCounter(state.totalIncorrectCounter);	
-    }
-    document.getElementsByClassName('next-question')[0].style.display = 'block';
+  this.style.display = 'none';
+  //checking if selected answer is correct answer
+  if (currentQuestion.correct === document.querySelector('input:checked').id) {
+    correctAnswer();
+    correctCounter(state.totalCorrectCounter);
   }
   else {
-    invalidInput.style.display = 'block';
+    findCurrentCorrectAnswer();
+    incorrectAnswer();
+    incorrectCounter(state.totalIncorrectCounter);	
   }
+  document.getElementsByClassName('next-question')[0].style.display = 'block';
+  return false;
 }
 
 function correctAnswer() {
@@ -194,7 +189,7 @@ function clickNextQuestion(e) {
   if (currentQuestion !== undefined) {
     document.querySelector('input:checked').checked = false;
     buildQuestion(currentQuestion);
-    checkAnswerButton.style.display = 'block';
+    formElement.style.display = 'block';
   }
   //once there are no more questions
   else {
@@ -221,7 +216,7 @@ function refreshPage() {
   location.reload();
 }
 
-//constiable which takes an object from the 'questions' array
+//variable which takes an object from the 'questions' array
 //based on 'progress' counter
 let currentQuestion = state.questions[state.quizProgress];
 //constiable for HTML element for form label and each indvidual radio input
@@ -234,16 +229,15 @@ const choiceD = document.querySelector('label[for=\'d\']');
 const begin = document.getElementsByClassName('begin');
 const nextQuestionButton = document.getElementsByClassName('next-question');
 const checkAnswerButton = document.getElementsByClassName('check-answer')[0];
+const formElement = document.querySelector('form');
 const refresh = document.getElementsByClassName('refresh')[0];
-const invalidInput = document.getElementsByClassName('invalid-input')[0];
 let selectedRadio;
-// const otherRadios;
 const form = document.querySelector('form');
 
 function eventHandlers() {
   begin[0].onclick = beginQuiz;
   nextQuestionButton[0].onclick = clickNextQuestion;
-  checkAnswerButton.onclick = checkAnswer;
+  formElement.onsubmit = checkAnswer;
   refresh.onclick = refreshPage;
 
 }
