@@ -106,11 +106,22 @@ clicking 'begin'*/
 
 function beginQuiz(e) {
   e.preventDefault();
+  resetQuiz();
   this.style.display = 'none';
   document.getElementsByClassName('description')[0].style.display = 'none';	
   buildQuestion(currentQuestion);
   document.getElementById('question').style.display = 'block';
   document.getElementsByClassName('counter')[0].style.display = 'block';
+  formContainer.style.display = 'block';
+}
+
+function resetQuiz() {
+  state.quizProgress = 0;
+  state.totalCorrectCounter = 0;
+  state.totalIncorrectCounter = 0;
+  currentQuestion = state.questions[state.quizProgress];
+  document.getElementsByClassName('correct-counter')[0].innerText = 'Correct: ' + state.totalCorrectCounter;
+  document.getElementsByClassName('incorrect-counter')[0].innerText = 'Incorrect: ' + state.totalIncorrectCounter;
 }
 
 function buildQuestion(question) {
@@ -122,13 +133,34 @@ function buildQuestion(question) {
   if (i.length > 0) {
     i[0].classList.remove('display-incorrect');
   }
-  questionHTML.innerHTML = question.question + '<br>';
-  choiceA.innerHTML = question.a + '<br>';
-  choiceB.innerHTML = question.b + '<br>';
-  choiceC.innerHTML = question.c + '<br>';
-  choiceD.innerHTML = question.d + '<br>';
+  formContainer.innerHTML = `<form id="question-form">
+      <fieldset class="question" id="question">
+        <legend>${question.question}</legend>
+        <div class="choices">
+          <label for="a">
+            <input type="radio" name="choice" id="a" value="a" required>
+            ${question.a}
+          </label>
+          <label for="b">
+            <input type="radio" name="choice" id="b" value="b">
+            ${question.b}
+          </label>
+          <label for="c">
+            <input type="radio" name="choice" id="c" value="c">
+            ${question.c}
+          </label>
+          <label for="d">
+            <input type="radio" name="choice" id="d" value="d">
+            ${question.d}
+          </label>
+        </div>
+        <button class="check-answer" type="submit">Submit</button>
+      </fieldset>
+    </form>`;
+  document.getElementsByClassName('question')[0].style.display = 'block';  
   detailsElement.innerHTML = `The correct answer is ${question.correct}. ${question.details}`;
-  //condense this?
+
+  document.getElementById('question-form').addEventListener('submit', checkAnswer);
 }
 
 /*function that checks answers after clicking 'check
@@ -136,32 +168,30 @@ answer'. Add green font to correct and red to user's
 answer if it wasn't correct*/
 function checkAnswer(e) {
   e.preventDefault();
-  selectedRadio = document.querySelector('input:checked') ? document.querySelector(`label[for='${document.querySelector('input:checked').id}']`) : null;
-  checkAnswerButton.style.display = 'none';
+  selectedRadio = document.querySelector('input:checked');
+  document.getElementsByClassName('check-answer')[0].style.display = 'none';
   detailsContainer.style.display = 'block';
   //checking if selected answer is correct answer
-  if (currentQuestion.correct === document.querySelector('input:checked').id) {
-    correctAnswer();
+  if (currentQuestion.correct === selectedRadio.id) {
+    correctAnswer(selectedRadio.id);
     correctCounter(state.totalCorrectCounter);
   }
   else {
     findCurrentCorrectAnswer();
-    incorrectAnswer();
+    incorrectAnswer(selectedRadio.id);
     incorrectCounter(state.totalIncorrectCounter);	
   }
   document.getElementsByClassName('next-question')[0].style.display = 'block';
-  return false;
+  document.getElementById('question-form').removeEventListener('submit', checkAnswer);
 }
 
-function correctAnswer() {
-  //add 'display-correct' class
-  selectedRadio.classList.add('display-correct');
+function correctAnswer(selectedRadioId) {
+  document.querySelector(`label[for='${selectedRadioId}']`).classList.add('display-correct');
   correctOrIncorrect.innerHTML = 'Correct!';
 }
 
-function incorrectAnswer() {	
-  //find correct, adds .display-correct
-  selectedRadio.classList.add('display-incorrect');
+function incorrectAnswer(selectedRadioId) {
+  document.querySelector(`label[for='${selectedRadioId}']`).classList.add('display-incorrect');
   correctOrIncorrect.innerHTML = 'Incorrect!';
 }
 
@@ -194,8 +224,7 @@ function clickNextQuestion(e) {
   if (currentQuestion !== undefined) {
     document.querySelector('input:checked').checked = false;
     buildQuestion(currentQuestion);
-    formElement.style.display = 'block';
-    checkAnswerButton.style.display = 'block';
+    document.getElementsByClassName('check-answer')[0].style.display = 'block';
   }
   //once there are no more questions
   else {
@@ -205,10 +234,11 @@ function clickNextQuestion(e) {
 
 /*function to show results and hide counter*/
 function showResultsClass() {
-  form.style.display = 'none';
+  formContainer.style.display = 'none';
   document.getElementsByClassName('counter')[0].style.display = 'none';
   returnResults(state.totalCorrectCounter);
   document.getElementsByClassName('results')[0].style.display = 'block';
+  refresh.style.display = 'block';
 }
 
 /*function to add the amount correct to 'results'*/
@@ -216,29 +246,16 @@ function returnResults(number) {
   return document.getElementById('number-correct').innerText = number;
 }
 
-/*function that refreshes page at end to start 
-again*/
-function refreshPage() {
-  location.reload();
-}
-
 //variable which takes an object from the 'questions' array
 //based on 'progress' counter
 let currentQuestion = state.questions[state.quizProgress];
 //constiable for HTML element for form label and each indvidual radio input
-const questionHTML = document.querySelector('legend'); 
-const choiceA = document.querySelector('label[for=\'a\']');
-const choiceB = document.querySelector('label[for=\'b\']');
-const choiceC = document.querySelector('label[for=\'c\']');
-const choiceD = document.querySelector('label[for=\'d\']');
+const formContainer = document.getElementsByClassName('form-container')[0];
 
 const begin = document.getElementsByClassName('begin');
 const nextQuestionButton = document.getElementsByClassName('next-question');
-const checkAnswerButton = document.getElementsByClassName('check-answer')[0];
-const formElement = document.querySelector('form');
 const refresh = document.getElementsByClassName('refresh')[0];
 let selectedRadio;
-const form = document.querySelector('form');
 const detailsContainer = document.getElementsByClassName('details-container')[0];
 const correctOrIncorrect = document.getElementById('correct-or-incorrect');
 const detailsElement = document.getElementById('details');
@@ -246,11 +263,8 @@ const detailsElement = document.getElementById('details');
 function eventHandlers() {
   begin[0].onclick = beginQuiz;
   nextQuestionButton[0].onclick = clickNextQuestion;
-  formElement.onsubmit = checkAnswer;
-  refresh.onclick = refreshPage;
+  refresh.onclick = beginQuiz;
 
 }
 
 eventHandlers();
-
-
