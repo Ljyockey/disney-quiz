@@ -120,8 +120,8 @@ function resetQuiz() {
   state.totalCorrectCounter = 0;
   state.totalIncorrectCounter = 0;
   currentQuestion = state.questions[state.quizProgress];
-  document.getElementsByClassName('correct-counter')[0].innerText = 'Correct: ' + state.totalCorrectCounter;
-  document.getElementsByClassName('incorrect-counter')[0].innerText = 'Incorrect: ' + state.totalIncorrectCounter;
+  correctCounter.innerText = state.totalCorrectCounter;
+  document.getElementById('incorrect-counter').innerText = state.totalIncorrectCounter;
 }
 
 function buildQuestion(question) {
@@ -174,12 +174,12 @@ function checkAnswer(e) {
   //checking if selected answer is correct answer
   if (currentQuestion.correct === selectedRadio.id) {
     correctAnswer(selectedRadio.id);
-    correctCounter(state.totalCorrectCounter);
+    incrementCorrectCounter(state.totalCorrectCounter);
   }
   else {
     findCurrentCorrectAnswer();
     incorrectAnswer(selectedRadio.id);
-    incorrectCounter(state.totalIncorrectCounter);	
+    incrementIncorrectCounter(state.totalIncorrectCounter);	
   }
   document.getElementsByClassName('next-question')[0].style.display = 'block';
   document.getElementById('question-form').removeEventListener('submit', checkAnswer);
@@ -201,14 +201,14 @@ function findCurrentCorrectAnswer() {
 }
 
 /*function that adds the amount of right answers*/
-function correctCounter() {
+function incrementCorrectCounter() {
   state.totalCorrectCounter++;
-  document.getElementsByClassName('correct-counter')[0].innerText = 'Correct: ' + state.totalCorrectCounter;
+  correctCounter.innerText = state.totalCorrectCounter;
 }
 
-function incorrectCounter() {
+function incrementIncorrectCounter() {
   state.totalIncorrectCounter++;
-  document.getElementsByClassName('incorrect-counter')[0].innerText = 'Incorrect: ' + state.totalIncorrectCounter;
+  document.getElementById('incorrect-counter').innerText = state.totalIncorrectCounter;
 }
 
 
@@ -237,7 +237,7 @@ function renderResults() {
   document.getElementsByClassName('counter')[0].style.display = 'none';
   formContainer.innerHTML = `
     <h2>Results</h2>
-    <p>You got ${state.totalCorrectCounter} out of 10 correct!</p>
+    <p>You got ${state.totalCorrectCounter} out of ${state.questions.length} correct!</p>
     <p><a href="https://twitter.com/Ljyockey">Follow me on Twitter</a></p>
     <button type="submit" id="refresh" class="refresh">Start Over</button>`;
   addButtonClickListener(document.getElementById('refresh'), beginQuiz);
@@ -253,16 +253,15 @@ let currentQuestion = state.questions[state.quizProgress];
 //constiable for HTML element for form label and each indvidual radio input
 const formContainer = document.getElementsByClassName('form-container')[0];
 
-const begin = document.getElementsByClassName('begin');
-const nextQuestionButton = document.getElementsByClassName('next-question');
 let selectedRadio;
 const detailsContainer = document.getElementsByClassName('details-container')[0];
 const correctOrIncorrect = document.getElementById('correct-or-incorrect');
 const detailsElement = document.getElementById('details');
+const correctCounter = document.getElementById('correct-counter');
 
-function eventHandlers() {
-  begin[0].onclick = beginQuiz;
-  nextQuestionButton[0].onclick = clickNextQuestion;
+function initiateEventHandlers() {
+  addButtonClickListener(document.getElementsByClassName('begin')[0], beginQuiz);
+  addButtonClickListener(document.getElementsByClassName('next-question')[0], clickNextQuestion);
 }
 
-eventHandlers();
+initiateEventHandlers();
