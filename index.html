@@ -12,7 +12,7 @@
 <img src="img/mickey-mouse.gif" alt="">
 </header>
 <div class="container">
-<section class="sub-header"><h1>Disneyland Quiz</h1>
+<section class="sub-header" role="region"><h1>Disneyland Quiz</h1>
 <p class="description">How well do you know the happiest place on Earth?</p>
 </section>
 
@@ -24,19 +24,12 @@
 		<p id="details"></p>
 	</div>
 	<button type="button" class="next-question">Next</button>
+
+	<section class="counter">
+		<p class="correct-counter">Correct: 0</p>
+		<p class="incorrect-counter">Incorrect: 0</p>
+	</section>
 </main>
-
-<section class="counter">
-	<p class="correct-counter">Correct: 0</p>
-	<p class="incorrect-counter">Incorrect: 0</p>
-</section>
-
-<section class="results" role="region">
-	<h2>Results</h2>
-	<p>You got <span id="number-correct"></span>  out of 10 correct!</p>
-	<p><a href="https://twitter.com/Ljyockey">Follow me on Twitter</a></p>
-	<button type="submit" class="refresh">Start Over</button>
-</section>
 </div>
 
 <script type="text/javascript" src="app.js"></script>

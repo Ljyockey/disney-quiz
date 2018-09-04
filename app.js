@@ -228,22 +228,23 @@ function clickNextQuestion(e) {
   }
   //once there are no more questions
   else {
-    showResultsClass();
+    renderResults();
   }
 }
 
-/*function to show results and hide counter*/
-function showResultsClass() {
-  formContainer.style.display = 'none';
+/*function to add the amount correct to 'results'*/
+function renderResults() {
   document.getElementsByClassName('counter')[0].style.display = 'none';
-  returnResults(state.totalCorrectCounter);
-  document.getElementsByClassName('results')[0].style.display = 'block';
-  refresh.style.display = 'block';
+  formContainer.innerHTML = `
+    <h2>Results</h2>
+    <p>You got ${state.totalCorrectCounter} out of 10 correct!</p>
+    <p><a href="https://twitter.com/Ljyockey">Follow me on Twitter</a></p>
+    <button type="submit" id="refresh" class="refresh">Start Over</button>`;
+  addButtonClickListener(document.getElementById('refresh'), beginQuiz);
 }
 
-/*function to add the amount correct to 'results'*/
-function returnResults(number) {
-  return document.getElementById('number-correct').innerText = number;
+function addButtonClickListener(targetElement, callback) {
+  targetElement.addEventListener('click', callback);
 }
 
 //variable which takes an object from the 'questions' array
@@ -254,7 +255,6 @@ const formContainer = document.getElementsByClassName('form-container')[0];
 
 const begin = document.getElementsByClassName('begin');
 const nextQuestionButton = document.getElementsByClassName('next-question');
-const refresh = document.getElementsByClassName('refresh')[0];
 let selectedRadio;
 const detailsContainer = document.getElementsByClassName('details-container')[0];
 const correctOrIncorrect = document.getElementById('correct-or-incorrect');
@@ -263,8 +263,6 @@ const detailsElement = document.getElementById('details');
 function eventHandlers() {
   begin[0].onclick = beginQuiz;
   nextQuestionButton[0].onclick = clickNextQuestion;
-  refresh.onclick = beginQuiz;
-
 }
 
 eventHandlers();
