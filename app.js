@@ -107,12 +107,14 @@ clicking 'begin'*/
 function beginQuiz(e) {
   e.preventDefault();
   resetQuiz();
-  this.style.display = 'none';
-  document.getElementsByClassName('description')[0].style.display = 'none';	
+  changeDisplay(this.id, 'none');
+  changeDisplay('description', 'none');
+
   buildQuestion(currentQuestion);
-  document.getElementById('question').style.display = 'block';
-  document.getElementsByClassName('counter')[0].style.display = 'block';
-  formContainer.style.display = 'block';
+
+  changeDisplay('question', 'block');
+  changeDisplay('counter', 'block');
+  changeDisplay(formContainer.id, 'block');
 }
 
 function resetQuiz() {
@@ -154,10 +156,10 @@ function buildQuestion(question) {
             ${question.d}
           </label>
         </div>
-        <button class="check-answer" type="submit">Submit</button>
+        <button class="check-answer" id="check-answer" type="submit">Submit</button>
       </fieldset>
     </form>`;
-  document.getElementsByClassName('question')[0].style.display = 'block';  
+  changeDisplay('question', 'block');  
   detailsElement.innerHTML = `The correct answer is ${question.correct}. ${question.details}`;
 
   document.getElementById('question-form').addEventListener('submit', checkAnswer);
@@ -169,11 +171,11 @@ answer if it wasn't correct*/
 function checkAnswer(e) {
   e.preventDefault();
   selectedRadio = document.querySelector('input:checked');
-  document.getElementsByClassName('check-answer')[0].style.display = 'none';
-  detailsContainer.style.display = 'block';
+  changeDisplay('check-answer', 'none');
+  changeDisplay(detailsContainer, 'block');
 
   renderAnswer(currentQuestion.correct === selectedRadio.id);
-  document.getElementsByClassName('next-question')[0].style.display = 'block';
+  changeDisplay('next-question', 'block');
   document.getElementById('question-form').removeEventListener('submit', checkAnswer);
 }
 
@@ -214,20 +216,24 @@ function findCurrentCorrectAnswer() {
   ca.classList.add('display-correct');
 }
 
+function changeDisplay(elementId, display) {
+  document.getElementById(elementId).style.display = display;
+}
+
 
 /*function that hides current question and reveals 
 next question after clicking 'next'*/
 function clickNextQuestion(e) {
   e.preventDefault();
-  detailsContainer.style.display = 'none';
-  this.style.display = 'none';
+  changeDisplay(detailsContainer, 'none');
+  changeDisplay(this.id, 'none');
   state.quizProgress++;
   currentQuestion = state.questions[state.quizProgress];
   //checks if there are still remaining questions
   if (currentQuestion !== undefined) {
     document.querySelector('input:checked').checked = false;
     buildQuestion(currentQuestion);
-    document.getElementsByClassName('check-answer')[0].style.display = 'block';
+    changeDisplay('check-answer', 'block');
   }
   //once there are no more questions
   else {
@@ -237,12 +243,14 @@ function clickNextQuestion(e) {
 
 /*function to add the amount correct to 'results'*/
 function renderResults() {
-  document.getElementsByClassName('counter')[0].style.display = 'none';
+  changeDisplay('counter', 'none');
   formContainer.innerHTML = `
-    <h2>Results</h2>
-    <p>You got ${state.totalCorrectCounter} out of ${state.questions.length} correct!</p>
-    <p><a href="https://twitter.com/Ljyockey">Follow me on Twitter</a></p>
-    <button type="submit" id="refresh" class="refresh">Start Over</button>`;
+    <div class="results">
+      <h2>Results</h2>
+      <p>You got ${state.totalCorrectCounter} out of ${state.questions.length} correct!</p>
+      <p><a href="https://twitter.com/Ljyockey">Follow me on Twitter</a></p>
+      <button type="submit" id="refresh" class="refresh">Start Over</button>
+    </div>`;
   addButtonClickListener(document.getElementById('refresh'), beginQuiz);
 }
 
@@ -253,8 +261,8 @@ function addButtonClickListener(targetElement, callback) {
 //global variables
 let currentQuestion;
 let selectedRadio;
-const formContainer = document.getElementsByClassName('form-container')[0];
-const detailsContainer = document.getElementsByClassName('details-container')[0];
+const formContainer = document.getElementById('form-container');
+const detailsContainer = document.getElementById('details-container').id;
 const correctOrIncorrect = document.getElementById('correct-or-incorrect');
 const detailsElement = document.getElementById('details');
 const correctCounter = document.getElementById('correct-counter');
