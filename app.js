@@ -119,15 +119,15 @@ function resetQuiz() {
   state.quizProgress = 0;
   state.totalCorrectCounter = 0;
   state.totalIncorrectCounter = 0;
-  currentQuestion = state.questions[state.quizProgress];
-  correctCounter.innerText = state.totalCorrectCounter;
-  document.getElementById('incorrect-counter').innerText = state.totalIncorrectCounter;
+  currentQuestion = 0;
+  correctCounter.innerText = 0;
+  document.getElementById('incorrect-counter').innerText = 0;
 }
 
 function buildQuestion(question) {
-  const c = document.getElementsByClassName('display-correct');
-  if (c.length > 0) {
-    c[0].classList.remove('display-correct');
+  const correctAnswer = document.getElementsByClassName('display-correct');
+  if (correctAnswer.length > 0) {
+    correctAnswer[0].classList.remove('display-correct');
   }
   const i = document.getElementsByClassName('display-incorrect');
   if (i.length > 0) {
