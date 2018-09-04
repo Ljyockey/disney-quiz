@@ -119,7 +119,7 @@ function resetQuiz() {
   state.quizProgress = 0;
   state.totalCorrectCounter = 0;
   state.totalIncorrectCounter = 0;
-  currentQuestion = 0;
+  currentQuestion = state.questions[0];
   correctCounter.innerText = 0;
   document.getElementById('incorrect-counter').innerText = 0;
 }
@@ -171,18 +171,32 @@ function checkAnswer(e) {
   selectedRadio = document.querySelector('input:checked');
   document.getElementsByClassName('check-answer')[0].style.display = 'none';
   detailsContainer.style.display = 'block';
-  //checking if selected answer is correct answer
-  if (currentQuestion.correct === selectedRadio.id) {
+
+  renderAnswer(currentQuestion.correct === selectedRadio.id);
+  document.getElementsByClassName('next-question')[0].style.display = 'block';
+  document.getElementById('question-form').removeEventListener('submit', checkAnswer);
+}
+
+function renderAnswer(isCorrect) {
+  incrementAnswer(isCorrect);
+  if (isCorrect) {
     correctAnswer(selectedRadio.id);
-    incrementCorrectCounter(state.totalCorrectCounter);
   }
   else {
     findCurrentCorrectAnswer();
     incorrectAnswer(selectedRadio.id);
-    incrementIncorrectCounter(state.totalIncorrectCounter);	
   }
-  document.getElementsByClassName('next-question')[0].style.display = 'block';
-  document.getElementById('question-form').removeEventListener('submit', checkAnswer);
+}
+
+function incrementAnswer(isCorrect) {
+  if (isCorrect) {
+    state.totalCorrectCounter++;
+    correctCounter.innerText = state.totalCorrectCounter;
+  }
+  else {
+    state.totalIncorrectCounter++;
+    correctCounter.innerText = state.totalIncorrectCounter;
+  }
 }
 
 function correctAnswer(selectedRadioId) {
@@ -198,17 +212,6 @@ function incorrectAnswer(selectedRadioId) {
 function findCurrentCorrectAnswer() {
   const ca = document.querySelector(`label[for='${currentQuestion.correct}']`);
   ca.classList.add('display-correct');
-}
-
-/*function that adds the amount of right answers*/
-function incrementCorrectCounter() {
-  state.totalCorrectCounter++;
-  correctCounter.innerText = state.totalCorrectCounter;
-}
-
-function incrementIncorrectCounter() {
-  state.totalIncorrectCounter++;
-  document.getElementById('incorrect-counter').innerText = state.totalIncorrectCounter;
 }
 
 
@@ -247,13 +250,10 @@ function addButtonClickListener(targetElement, callback) {
   targetElement.addEventListener('click', callback);
 }
 
-//variable which takes an object from the 'questions' array
-//based on 'progress' counter
-let currentQuestion = state.questions[state.quizProgress];
-//constiable for HTML element for form label and each indvidual radio input
-const formContainer = document.getElementsByClassName('form-container')[0];
-
+//global variables
+let currentQuestion;
 let selectedRadio;
+const formContainer = document.getElementsByClassName('form-container')[0];
 const detailsContainer = document.getElementsByClassName('details-container')[0];
 const correctOrIncorrect = document.getElementById('correct-or-incorrect');
 const detailsElement = document.getElementById('details');
