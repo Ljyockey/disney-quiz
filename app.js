@@ -28,7 +28,7 @@ const state = {
       c: 'c) Pirates of the Caribbean',
       d: 'd) Matterhorn',
       correct: 'c',
-      details: 'This was the last project where Walt directly participated in the design, though it didn\'t debut until approximately 3 months after his death.'
+      details: 'This was the last project where Walt directly participated in the design, though it didn\'t open until approximately 3 months after his death.'
     },
     {
       question: '4 of 10: What year did Disneyland open?',
